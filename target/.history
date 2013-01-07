@@ -1,0 +1,15 @@
+eclipse
+exit
+eclipse
+exit
+eclipse
+package code.model
+import net.liftweb.mapper._
+class User extends MegaProtoUser[User] {
+gleton = User
+}
+object User extends User with MetaMegaProtoUser[User] {
+t"
+}~; container:start; container:reload /
+~; container:start; container:reload /
+exit
