@@ -10,6 +10,7 @@ import sitemap._
 import Loc._
 import net.liftmodules.JQueryModule
 import net.liftweb.http.js.jquery._
+import code.model.User
 
 
 /**
@@ -22,7 +23,7 @@ class Boot {
     LiftRules.addToPackages("code")
 
     // Build SiteMap
-    val entries = List(
+    val entries = SiteMap(
       Menu.i("Home") / "index", // the simple way to declare a menu
 
       // more complex because this menu allows anything in the
@@ -30,9 +31,11 @@ class Boot {
       Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
 	       "Static Content")))
 
-    // set the sitemap.  Note if you don't want access control for
+    def sitemapMutators = User.sitemapMutator
+
+    // set the sitemap. Note if you don't want access control for
     // each page, just comment this line out.
-    LiftRules.setSiteMap(SiteMap(entries:_*))
+    LiftRules.setSiteMapFunc(() => sitemapMutators(entries))
 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
